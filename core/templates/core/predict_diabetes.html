@@ -1,0 +1,132 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Diabetes Prediction | PrediCare{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+```
+<h2 class="mb-4 text-center">🩸 Diabetes Risk Prediction</h2>
+<p class="text-muted text-center mb-5">
+    Please enter the following medical information. Example ranges are provided for guidance.
+</p>
+
+<form method="post" action="{% url 'predict_diabetes' %}">
+    {% csrf_token %}
+
+    {% if error %}
+    <div class="alert alert-warning mt-3">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="row">
+
+        <!-- Age -->
+        <div class="col-md-4 mb-3">
+            <label>Age</label>
+            <input type="number" name="age" class="form-control"
+            placeholder="Example: 45" required>
+            <small class="text-muted">Typical range: 18 – 90</small>
+        </div>
+
+        <!-- Gender -->
+        <div class="col-md-4 mb-3">
+            <label>Gender</label>
+            <select name="gender" class="form-control" required>
+                <option value="">Select</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <!-- Hypertension -->
+        <div class="col-md-4 mb-3">
+            <label>Hypertension</label>
+            <select name="hypertension" class="form-control" required>
+                <option value="">Select</option>
+                <option value="1">Yes (Patient has hypertension)</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <!-- Heart Disease -->
+        <div class="col-md-4 mb-3">
+            <label>Existing Heart Disease</label>
+            <select name="heart_disease" class="form-control" required>
+                <option value="">Select</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <!-- BMI -->
+        <div class="col-md-4 mb-3">
+            <label>Body Mass Index (BMI)</label>
+            <input type="number" step="0.1" name="bmi"
+            class="form-control" placeholder="Example: 24.5" required>
+            <small class="text-muted">Normal range: 18.5 – 24.9</small>
+        </div>
+
+        <!-- HbA1c -->
+        <div class="col-md-4 mb-3">
+            <label>HbA1c Level (%)</label>
+            <input type="number" step="0.1" name="HbA1c_level"
+            class="form-control" placeholder="Example: 5.6" required>
+            <small class="text-muted">Normal: below 5.7%</small>
+        </div>
+
+        <!-- Blood Glucose -->
+        <div class="col-md-4 mb-3">
+            <label>Blood Glucose Level</label>
+            <input type="number" step="any"
+            name="blood_glucose_level"
+            class="form-control"
+            placeholder="Example: 110" required>
+            <small class="text-muted">Normal fasting: 70 – 99 mg/dL</small>
+        </div>
+
+        <!-- Smoking -->
+        <div class="col-md-4 mb-3">
+            <label>Smoking History</label>
+            <select name="smoking_history" class="form-control" required>
+                <option value="">Select</option>
+                <option value="never">Never Smoked</option>
+                <option value="former">Former Smoker</option>
+                <option value="current">Current Smoker</option>
+                <option value="ever">Smoked Previously</option>
+                <option value="not current">Not Currently Smoking</option>
+                <option value="No Info">No Information</option>
+            </select>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">
+        Predict Risk
+    </button>
+
+</form>
+
+{% if prediction is not None %}
+    <div class="alert mt-4
+    {% if prediction == 1 %}
+        alert-danger
+    {% else %}
+        alert-success
+    {% endif %}">
+
+    {% if prediction == 1 %}
+        ⚠ High Risk of Diabetes
+    {% else %}
+        ✅ Low Risk of Diabetes
+    {% endif %}
+
+    </div>
+{% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Doctor Dashboard | PrediCare{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <h2>Doctor Dashboard</h2>
+    <p>Welcome Dr. {{ request.user.first_name }}</p>
+
+    <div class="mt-4">
+        <div class="card p-4 shadow-sm">
+            <h5>Patient Bookings</h5>
+            <p>View and manage appointment requests.</p>
+            <a href="{% url 'doctor_bookings' %}" class="btn btn-primary">View Bookings</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

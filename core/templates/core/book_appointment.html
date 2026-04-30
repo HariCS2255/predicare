@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Book Appointment | PrediCare{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <h2 class="mb-4">Book Appointment</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Select Doctor</label>
+            <select name="doctor" class="form-control" required>
+                {% for doctor in doctors %}
+                <option value="{{ doctor.user.id }}">
+                    Dr. {{ doctor.user.first_name }} ({{ doctor.get_specialization_display }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Preferred Date</label>
+           <input type="date" name="date" class="form-control"
+       min="{{ today|date:'Y-m-d' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Preferred Time</label>
+            <input type="time" name="time" class="form-control"
+       min="09:00" max="19:00" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Reason for Visit</label>
+            <textarea name="reason" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Book Appointment
+        </button>
+
+    </form>
+</div>
+
+{% endblock %}

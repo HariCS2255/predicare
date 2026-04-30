@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block title %}AI Disease Prediction | PrediCare{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">AI Multi-Disease Prediction</h2>
+        <p class="text-muted">Select a disease to check your risk</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- AI Lab Report Upload -->
+<div class="col-md-4">
+    <div class="card shadow-sm text-center p-4 h-100 border-primary">
+        <h5 class="text-primary">Upload Lab Report (PDF)</h5>
+        <p>Automatic AI multi-disease analysis</p>
+        <a href="{% url 'upload_report' %}" class="btn btn-outline-primary">
+            Upload & Analyze
+        </a>
+    </div>
+</div>
+
+        <!-- Heart -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center p-4 h-100">
+                <h5>Heart Disease</h5>
+                <p>Cardiovascular risk assessment</p>
+                <a href="{% url 'predict_heart' %}" class="btn btn-primary">
+                    Predict
+                </a>
+            </div>
+        </div>
+
+        <!-- Diabetes -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center p-4 h-100">
+                <h5>Diabetes</h5>
+                <p>Blood glucose disorder risk</p>
+                <a href="{% url 'predict_diabetes' %}" class="btn btn-primary">Predict</a>
+            </div>
+        </div>
+
+        <!-- Kidney -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center p-4 h-100">
+                <h5>Kidney Disease</h5>
+                <p>Chronic kidney disease risk</p>
+                <a href="{% url 'predict_kidney' %}" class="btn btn-primary">Predict</a>
+            </div>
+        </div>
+
+        <!-- Liver -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center p-4 h-100">
+                <h5>Liver Disease</h5>
+                <p>Chronic liver condition risk</p>
+                <a href="{% url 'predict_liver' %}" class="btn btn-primary">Predict</a>
+            </div>
+        </div>
+
+        <!-- Lung -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center p-4 h-100">
+                <h5>Lung Disease</h5>
+                <p>Respiratory disorder risk</p>
+                <a href="{% url 'predict_lung' %}" class="btn btn-primary">Predict</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

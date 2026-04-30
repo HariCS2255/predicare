@@ -1,0 +1,82 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home | PrediCare{% endblock %}
+
+{% block content %}
+
+<!-- Hero Start -->
+<div class="container-fluid bg-primary py-5 mb-5 hero-header">
+    <div class="container py-5">
+        <div class="row justify-content-start">
+            <div class="col-lg-8">
+                <h1 class="display-4 text-white">AI-Powered Multi-Disease Prediction</h1>
+                <p class="text-white mb-4">
+                    Early detection • Smart insights • Better care
+                </p>
+                {% if user.is_authenticated %}
+    <a href="{% url 'user_home' %}" class="btn btn-light rounded-pill py-2 px-4">
+        Start Prediction
+    </a>
+{% else %}
+    <a href="{% url 'login' %}" class="btn btn-light rounded-pill py-2 px-4">
+        Start Prediction
+    </a>
+{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+
+<!-- About Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row gx-5 align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <img class="img-fluid rounded"
+                     src="{% static 'core/img/about.jpg' %}"
+                     alt="About PrediCare">
+            </div>
+            <div class="col-lg-7">
+                <h2>About PrediCare</h2>
+                <p>
+                    PrediCare is an AI-based disease surveillance system designed
+                    to predict multiple chronic diseases at an early stage using
+                    machine learning techniques.
+                </p>
+                <p>
+                    It helps doctors and patients take preventive action
+                    through early AI-driven insights.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+<!-- Services Start -->
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-md-4">
+                <i class="fa fa-brain fa-3x text-primary mb-3"></i>
+                <h5>AI Disease Prediction</h5>
+                <p>Machine-learning based early diagnosis</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-notes-medical fa-3x text-primary mb-3"></i>
+                <h5>Health Data Analysis</h5>
+                <p>Smart analysis of patient health parameters</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fa fa-user-md fa-3x text-primary mb-3"></i>
+                <h5>Doctor Assistance</h5>
+                <p>Decision support for healthcare professionals</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Services End -->
+
+{% endblock %}

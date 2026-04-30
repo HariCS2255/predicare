@@ -1,0 +1,99 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Lung Disease Prediction | PrediCare{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+```
+<h2 class="mb-4 text-center">🫁 Lung Disease Risk Assessment</h2>
+<p class="text-muted text-center mb-5">
+    Enter the patient's clinical condition and nutritional information. Example values are provided for guidance.
+</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+
+        <!-- Age -->
+        <div class="col-md-4 mb-3">
+            <label>Age</label>
+            <input type="number" name="age" class="form-control"
+            placeholder="Example: 60" required>
+            <small class="text-muted">Typical range: 30 – 90</small>
+        </div>
+
+        <!-- ECOG -->
+        <div class="col-md-4 mb-3">
+            <label>ECOG Performance Score</label>
+            <select name="ph.ecog" class="form-control" required>
+                <option value="">Select</option>
+                <option value="0">0 – Fully active</option>
+                <option value="1">1 – Restricted in strenuous activity</option>
+                <option value="2">2 – Ambulatory but unable to work</option>
+                <option value="3">3 – Limited self-care</option>
+                <option value="4">4 – Completely disabled</option>
+                <option value="5">5 – Dead</option>
+            </select>
+            <small class="text-muted">Scale used to measure patient functional status</small>
+        </div>
+
+        <!-- Karnofsky -->
+        <div class="col-md-4 mb-3">
+            <label>Karnofsky Performance Score</label>
+            <input type="number" name="ph.karno"
+            class="form-control"
+            placeholder="Example: 80" required>
+            <small class="text-muted">Typical range: 0 – 100 (higher is better)</small>
+        </div>
+
+        <!-- Weight Loss -->
+        <div class="col-md-4 mb-3">
+            <label>Recent Weight Loss</label>
+            <input type="number" step="0.1" name="wt.loss"
+            class="form-control"
+            placeholder="Example: 5">
+            <small class="text-muted">Measured in kg lost recently</small>
+        </div>
+
+        <!-- Calories -->
+        <div class="col-md-4 mb-3">
+            <label>Daily Calorie Intake</label>
+            <input type="number" step="any"
+            name="meal.cal"
+            class="form-control"
+            placeholder="Example: 2000">
+            <small class="text-muted">Typical adult intake: 1800 – 2500 kcal</small>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">
+        Predict Risk
+    </button>
+
+</form>
+
+{% if prediction is not None %}
+    <div class="alert mt-4
+    {% if prediction == 1 %}
+        alert-danger
+    {% else %}
+        alert-success
+    {% endif %}">
+
+    {% if prediction == 1 %}
+        ⚠ High Lung Disease / Mortality Risk
+    {% else %}
+        ✅ Lower Lung Disease Risk
+    {% endif %}
+
+    </div>
+{% endif %}
+```
+
+</div>
+
+{% endblock %}

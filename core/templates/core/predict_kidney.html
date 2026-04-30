@@ -1,0 +1,110 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Kidney Disease Prediction | PrediCare{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+```
+<h2 class="mb-4 text-center">🧪 Kidney Disease Risk Assessment</h2>
+<p class="text-muted text-center mb-5">
+    Enter the patient's clinical measurements. Example values and normal ranges are provided for reference.
+</p>
+
+<form method="post" action="{% url 'predict_kidney' %}">
+    {% csrf_token %}
+
+    <div class="row">
+
+        <!-- Age -->
+        <div class="col-md-4 mb-3">
+            <label>Age</label>
+            <input type="number" name="age" class="form-control"
+            placeholder="Example: 50" required>
+            <small class="text-muted">Typical range: 18 – 90</small>
+        </div>
+
+        <!-- Blood Pressure -->
+        <div class="col-md-4 mb-3">
+            <label>Blood Pressure</label>
+            <input type="number" name="bp" class="form-control"
+            placeholder="Example: 120" required>
+            <small class="text-muted">Normal: ~120 mm Hg</small>
+        </div>
+
+        <!-- Blood Glucose -->
+        <div class="col-md-4 mb-3">
+            <label>Blood Glucose Level</label>
+            <input type="number" name="bgr" class="form-control"
+            placeholder="Example: 110" required>
+            <small class="text-muted">Normal fasting: 70 – 99 mg/dL</small>
+        </div>
+
+        <!-- Creatinine -->
+        <div class="col-md-4 mb-3">
+            <label>Serum Creatinine</label>
+            <input type="number" step="0.1" name="sc"
+            class="form-control"
+            placeholder="Example: 1.0" required>
+            <small class="text-muted">Normal: 0.6 – 1.3 mg/dL</small>
+        </div>
+
+        <!-- Hemoglobin -->
+        <div class="col-md-4 mb-3">
+            <label>Hemoglobin</label>
+            <input type="number" step="0.1" name="hemo"
+            class="form-control"
+            placeholder="Example: 14.0" required>
+            <small class="text-muted">Normal: 12 – 16 g/dL</small>
+        </div>
+
+        <!-- Hypertension -->
+        <div class="col-md-4 mb-3">
+            <label>Hypertension</label>
+            <select name="htn" class="form-control" required>
+                <option value="">Select</option>
+                <option value="yes">Yes (Patient has hypertension)</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+
+        <!-- Diabetes -->
+        <div class="col-md-4 mb-3">
+            <label>Diabetes</label>
+            <select name="dm" class="form-control" required>
+                <option value="">Select</option>
+                <option value="yes">Yes (Patient has diabetes)</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">
+        Predict Risk
+    </button>
+
+</form>
+
+{% if prediction is not None %}
+    <div class="alert mt-4
+    {% if prediction == 1 %}
+        alert-danger
+    {% else %}
+        alert-success
+    {% endif %}">
+
+    {% if prediction == 1 %}
+        ⚠ High Risk of Kidney Disease
+    {% else %}
+        ✅ Low Risk of Kidney Disease
+    {% endif %}
+
+    </div>
+{% endif %}
+```
+
+</div>
+
+{% endblock %}

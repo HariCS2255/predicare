@@ -1,0 +1,139 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Report Analysis Results | PrediCare{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">AI Risk Assessment Results</h2>
+        <p class="text-muted">
+            Risk predictions based on extracted laboratory parameters.
+        </p>
+    </div>
+
+    <!-- ================= DISEASE RESULTS (TOP) ================= -->
+
+    <div class="row g-4 mb-5">
+
+        {% for disease, data in results.items %}
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center">
+
+                    <h5 class="card-title mb-3">{{ disease|title }}</h5>
+
+                    <!-- Risk Badge -->
+                    {% if data.probability >= 70 %}
+                        <span class="badge bg-danger mb-2">High Risk</span>
+                    {% elif data.probability >= 40 %}
+                        <span class="badge bg-warning text-dark mb-2">Moderate Risk</span>
+                    {% else %}
+                        <span class="badge bg-success mb-2">Low Risk</span>
+                    {% endif %}
+
+                    <p class="mb-1">
+                        <strong>Probability:</strong> {{ data.probability }}%
+                    </p>
+
+                    <p class="mb-1">
+                        <strong>Feature Coverage:</strong> {{ data.coverage }}%
+                    </p>
+
+                    <!-- Reliability -->
+                    {% if data.reliability == "High" %}
+                        <p class="text-success fw-semibold">
+                            Reliability: High Confidence
+                        </p>
+                    {% elif data.reliability == "Moderate" %}
+                        <p class="text-warning fw-semibold">
+                            Reliability: Moderate Confidence
+                        </p>
+                    {% else %}
+                        <p class="text-danger fw-semibold">
+                            Reliability: Limited Clinical Data
+                        </p>
+                    {% endif %}
+
+                </div>
+
+                {% if data.insight %}
+                <div class="px-3 pb-2 text-start">
+                    <strong>AI Clinical Insight</strong>
+                    <ul class="small mt-2">
+                        {% for point in data.insight %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <!-- Doctor Suggestion -->
+                {% if data.probability >= 70 %}
+                <div class="card-footer text-center bg-light">
+                    <a href="{% url 'book_appointment' %}" class="btn btn-outline-danger btn-sm">
+                        Consult Specialist
+                    </a>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- ================= EXTRACTED PARAMETERS (BOTTOM) ================= -->
+
+    <div class="card shadow-sm mb-5">
+        <div class="card-body">
+
+            <h5 class="card-title mb-3">Extracted Parameters</h5>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for key, value in extracted.items %}
+                        <tr>
+                            <td>{{ key|title }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-center text-muted">
+                                No parameters detected.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mt-5 text-muted small text-center">
+        <p>
+            Disclaimer: AI predictions are based on available laboratory parameters.
+            Reduced feature coverage may affect reliability of results.
+            Please consult a qualified medical professional for clinical decisions.
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Patient Dashboard | PrediCare{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="container-fluid bg-primary py-5 mb-5">
+    <div class="container">
+        <h1 class="text-white">Patient Dashboard</h1>
+        <p class="text-white">Welcome, {{ request.user.first_name }}</p>
+    </div>
+</div>
+
+<!-- Dashboard Cards -->
+<div class="container py-5">
+    <div class="row g-4">
+
+        <div class="col-md-4">
+    <div class="card shadow-sm p-4 text-center h-100">
+        <h5>Start AI Prediction</h5>
+        <p>Check your risk for chronic diseases</p>
+        <a href="{% url 'prediction_hub' %}" class="btn btn-primary">
+            Start
+        </a>
+    </div>
+</div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center h-100">
+                <h5>View Reports</h5>
+                <p>Access your previous results</p>
+                <a href="{% url 'view_reports' %}" class="btn btn-outline-primary">
+    View Reports
+</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center h-100">
+                <h5>Book Appointment</h5>
+                <p>Consult a doctor if needed</p>
+                <a href="{% url 'book_appointment' %}" class="btn btn-outline-primary">
+                    Book
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Booking History Section -->
+<div class="container pb-5">
+    <h3 class="mb-4">My Appointment History</h3>
+
+    <div class="card shadow-sm p-4">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Doctor</th>
+                        <th>Specialization</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>Dr. {{ booking.doctor.first_name }}</td>
+                        <td>{{ booking.specialization }}</td>
+                        <td>{{ booking.date }}</td>
+                        <td>{{ booking.time }}</td>
+
+                        <!-- Status Badge -->
+                        <td>
+                            {% if booking.status == 'pending' %}
+                                <span class="badge bg-warning text-dark">
+                                    Pending
+                                </span>
+                            {% elif booking.status == 'approved' %}
+                                <span class="badge bg-success">
+                                    Approved
+                                </span>
+                            {% else %}
+                                <span class="badge bg-danger">
+                                    Rejected
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <!-- Cancel Button -->
+                        <td>
+                            {% if booking.status == 'pending' %}
+                                <a href="{% url 'cancel_booking' booking.id %}"
+                                   class="btn btn-danger btn-sm">
+                                    Cancel
+                                </a>
+                            {% else %}
+                                <span class="text-muted">No action</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No appointments booked yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Admin Dashboard | PrediCare{% endblock %}
+
+{% block content %}
+
+<!-- Admin Hero Section -->
+<div class="container-fluid bg-primary py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-4 text-white">Admin Dashboard</h1>
+        <p class="text-white fs-5">
+            Welcome, {{ request.user.username }} 👑
+        </p>
+    </div>
+</div>
+
+<!-- Admin Actions -->
+<div class="container py-5">
+    <div class="row g-4">
+
+        <!-- Manage Users -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Manage Users</h5>
+                    <p class="card-text">
+                        View and manage registered users and doctors.
+                    </p>
+                    <a href="/admin/" class="btn btn-primary">
+                        Go to Admin Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctors -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Doctors</h5>
+                    <p class="card-text">
+                        Add or review doctor profiles and roles.
+                    </p>
+                    <a href="{% url 'manage_doctors' %}" class="btn btn-outline-primary">
+                        View Doctors
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Patients -->
+<div class="col-md-4">
+    <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+            <h5 class="card-title">Manage Patients</h5>
+            <p class="card-text">
+                View and manage registered patient accounts.
+            </p>
+            <a href="{% url 'manage_users' %}" class="btn btn-outline-primary">
+                View Patients
+            </a>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+{% endblock %}

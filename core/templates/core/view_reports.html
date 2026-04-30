@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+<h2 class="mb-4">Your AI Reports</h2>
+
+<table class="table table-bordered">
+
+<tr>
+<th>Date</th>
+<th>Diabetes</th>
+<th>Kidney</th>
+<th>Liver</th>
+<th>Heart</th>
+<th>Lung</th>
+</tr>
+
+{% for r in reports %}
+
+<tr>
+<td>{{ r.uploaded_at }}</td>
+<td>{{ r.diabetes_risk }}%</td>
+<td>{{ r.kidney_risk }}%</td>
+<td>{{ r.liver_risk }}%</td>
+<td>{{ r.heart_risk }}%</td>
+<td>{{ r.lung_risk }}%</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}
