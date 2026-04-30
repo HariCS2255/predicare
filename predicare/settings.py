@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-x_osfce(#n1n7v+rwv#h%&8f3kh6r%2pdt3c*noh2^@q%6*)du
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "predicare-crt9.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
 
 
 # Application definition
