@@ -1,0 +1,6 @@
+Django
+numpy
+scikit-learn
+joblib
+pdfplumber
+gunicorn
