@@ -1,1 +1,1 @@
-Djangogunicornnumpyscikit-learnjoblibpdfplumberrapidfuzz
+Djangogunicornnumpypandasscikit-learnjoblibpdfplumberrapidfuzzreportlab
